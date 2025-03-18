@@ -60,8 +60,7 @@ export async function loginAction(formData) {
                     success:false,
                     message:'this email is incorrect plz try with diffrent email'
                 }  
-            }
-               
+            }   
             const checkpassword = await bcryptjs.compare(password , checkUser.password)
               
             if (!checkpassword) {
@@ -70,7 +69,6 @@ export async function loginAction(formData) {
                     message: "password is incorrect pl try again"
                 }
             }
-    
             const createtedToken = {
                 id:checkUser._id,
                 username:checkUser.username,
@@ -84,21 +82,20 @@ export async function loginAction(formData) {
      console.log("token not geting", getCookies)
     return{
         success:true,
-        message:'login successful'
+        message:'login successful',
+        token,
+        userId:checkUser._id
     }
-    
-    
-    
-    
+
         } catch (error) {
             console.log('user not found')
             return{
                 success:false,
                 message:'erorr got'
             }
-        
+    
         }
-        
+      
     }
     
 
@@ -200,7 +197,7 @@ export async function getCurrentDataAction(currentId) {
 export async function getUserAction() {
     await authDB()
     try {
-        const getCookies = cookies()
+        const getCookies = await cookies()
       const token =   getCookies.get('token')?.value || ''
     
     if(token=== ''){

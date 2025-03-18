@@ -4,16 +4,22 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import SubscribeSection from "@/components/component-ui/subscribe-ui";
 import { GlobalContext } from "@/context";
+import Link from "next/link";
+import ButttonWishList from "@/components/component-ui/wishlistbutton";
 const ProductDetail = () => {
-  const {addCart} = useContext(GlobalContext)
+  
   const { details: id } = useParams()
   const [showImage ,setShowImage] = useState()
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectSize , SetSelectSize] = useState('')
+ 
+  const {wishlist , selectSize , SetSelectSize,addCart} = useContext(GlobalContext)
 
+ 
+  console.log(wishlist)
   // console.log(selectSize)
+
   useEffect(() => {
     if (!id) return;
 
@@ -81,8 +87,8 @@ const ProductDetail = () => {
               </div>
               {/* wishlist */}
               <div className=' w-full  text-center'>
-                <button className=' h-6 w-52  text-black border-2 border-gray-400 rounded-md font-semibold'>WishList</button>
-              </div>
+               <ButttonWishList className='bg-gray-300 border-2 border-black py-3 px-3 rounded-md hover:bg-black hover:text-white'  productId = {product}>Add To Wish List</ButttonWishList>
+             </div>
               {/*  discription */}
              
               <div className='text-wrap  space-y-5  text-gray-500 text-sm'>

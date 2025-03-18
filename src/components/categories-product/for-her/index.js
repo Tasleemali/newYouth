@@ -12,11 +12,8 @@ function ForHer() {
     const [product ,setProduct] = useState([])
     const [subCategory ,setSubCategory] = useState('Top')
       const {  query } = useContext(GlobalContext)
-    const [like ,setLike] = useState(false)
-    const toggleLike=() =>{
-      setLike(!like)
-    
-    }
+
+   
 
     useEffect(() => {
       async function fetchProducts() {
@@ -45,7 +42,11 @@ function ForHer() {
     <div className="relative text-black">
   
 <div className='pt-5 space-y-2'>
-  <h1 className='text-center font-semibold'>For Her </h1>
+<h1 className="  text-2xl font-bold flex  justify-center items-center gap-1"> For
+            <span className="bg-black text-white px-3 py-1 rounded skew-x-[-10deg] inline-block">
+              Men
+            </span>
+          </h1>
  <ul className='  mt-[-15px] text-[10px] md:text-sm  flex justify-center items-center gap-5 '>
     <li value={'Top'} onClick={()=>setSubCategory('Top')}>MEN'S TOPWEAR</li>
  <li value={'Bottom'} onClick={()=>setSubCategory('Bottom')}>MENS'S BOTTOMWEAR</li>
@@ -53,7 +54,7 @@ function ForHer() {
   </ul>    </div>
 
     {/* Scrollable Container */}
-    <div className="flex overflow-x-scroll  no-scrollbar space-x-4 p-4">
+    <div className=" mt-5 flex overflow-x-scroll  no-scrollbar space-x-4 p-4">
       {product.filter((item)=> item.name.toLowerCase().includes(query.toLowerCase())).map((product) =>{ 
 
        if(product.subcategory === subCategory && product.category === 'Women'){
@@ -84,10 +85,7 @@ return(
         -{discountPercentage}%
       </span>
     )}
-    {/* Wishlist Icon */}
-    <span className="absolute top-2 right-2 text-gray-600 text-xl cursor-pointer">
-       <Heart/>
-    </span>
+ 
   </div>
   {/* Product Details */}
   <h2 className="mt-2 text-sm font-semibold">{product.name}</h2>

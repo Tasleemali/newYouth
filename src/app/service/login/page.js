@@ -5,7 +5,7 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import { useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaGoogle } from "react-icons/fa";
-import { loginAction } from "@/action";
+
 import { GlobalContext } from "@/context";
 
 
@@ -15,31 +15,39 @@ const IntialLoginForm = {
 }
 
 export default function LoginPage() {
-const {setIsAuth} = useContext(GlobalContext)
+  const {IsAuth ,setIsAuth} = useContext(GlobalContext)
+// const {setIsAuth} = useContext(GlobalContext)
 const [loginFormData ,setLoginFormData] =useState(IntialLoginForm)
 console.log(loginFormData)
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
 
-  async function handlelogin() {
-  
- const result = await loginAction(loginFormData)
-  console.log(result)
-  setLoading(true);
-   if(result?.success){
-  
-    setTimeout(() => {
-      setLoading(false);
-      router.push('/'); // Redirect to dashboard after signup
- setIsAuth(true)
-    }, 1000);
-     
-   }
- // Simulate account creation process
-  
-   
-  };
+  const handleSubmit = async (e) => {
+    setLoading(true)
+    e.preventDefault();
+    const res = await fetch("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify(loginFormData),
+        headers: { "Content-Type": "application/json" },
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+        localStorage.setItem("token", data.token);
+        setLoading(false)
+        alert("Login successful!");
+        router.push("/");
+        
+         setIsAuth(true)
+    } else {
+      
+        alert(data.error);
+        setLoading(false)
+        setLoginFormData(IntialLoginForm)
+    }
+};
+
 
   return (
     <div className='bg-white text-black'>
@@ -51,7 +59,7 @@ console.log(loginFormData)
     <div className="flex items-center justify-center min-h-[600px] bg-white">
       <div className="bg-white p-8 rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-bold text-center mb-6 text-black">Login</h2>
-        <form action={handlelogin} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-gray-700">Email</label>
             <input
@@ -86,9 +94,7 @@ console.log(loginFormData)
         <p className="text-center text-sm text-gray-600 mt-4">
           Don't have an account? <a href="/service/register" className="text-blue-500 hover:underline">Sign up</a> <br/>
         </p>
-        <div className="  text-center mt-4  ">
-        <button className=" rounded-lg border-2 py-2 border-gray-300 w-full text-center mt-4  flex  justify-center items-center gap-3" onClick={() => signIn()}> <FaGoogle className="bg-gradient-to-t  from-blue-500 to-red-600 bg-clip-text text-tr"/> Sign In</button>
-        </div>
+       
         
       </div>
       

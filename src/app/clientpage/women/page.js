@@ -1,8 +1,7 @@
 "use client"
 
 import React, { useState ,useEffect, useContext } from 'react'
-import { FaHeart, FaRegHeart } from 'react-icons/fa'
-import NewArrivalBanner from '@/components/component-ui/all-arrival-banner'
+
 import { motion } from 'framer-motion'
 import { GlobalContext } from '@/context'
 import { useRouter } from 'next/navigation'
@@ -11,10 +10,7 @@ function Men() {
   const [product, setProduct] = useState([])
   const [like, setLike] = useState(false)
    const {  query } = useContext(GlobalContext)
-  const toggleLike = () => {
-    setLike(!like)
-
-  }
+ 
 
   useEffect(() => {
     async function fetchProducts() {
@@ -43,7 +39,11 @@ function Men() {
             {/* <NewArrivalBanner /> */}
           </div>
 
-          <h1 className=' mt-5 text-center text-lg md:text-xl lg:text-3xl font-bold '>Women  </h1>
+          <h1 className=" mt-5 text-2xl font-bold flex  justify-center items-center gap-1"> Only
+            <span className="bg-black text-white px-3 py-1 rounded skew-x-[-10deg] inline-block">
+              Women
+            </span>
+          </h1>
 
           <div>
 
@@ -70,8 +70,7 @@ function Men() {
                   <div className='w-full max-w-sm bg-white rounded-lg  overflow-hidden gap-5'>
 
                     <div className='w-full aspect-[4/5] bg-gray-200 relative'>
-                      <button onClick={toggleLike} className=' absolute top-3 right-3 text-2xl hover:text-red-500 transition-all'> {like ? <FaHeart className='text-red-500' /> : <FaRegHeart />} </button>
-                      <span className='hidden md:inline-block absolute top-3 left-3 p-1 rounded-sm  bg-red-800 text-white '>{discountPercentage}%</span>
+                       <span className='hidden md:inline-block absolute top-3 left-3 p-1 rounded-sm  bg-red-800 text-white '>{discountPercentage}%</span>
                       <img
                         src={item.mainImage}
                         alt='product'
@@ -79,12 +78,12 @@ function Men() {
                       />
 
                     </div>
-                    <div className='4'>
-                      <span className=' p-1 rounded-sm  bg-red-800 text-white md:hidden'>-25%</span>
-                      <h2 className='text-lg font-semibold'>{item.name}</h2>
-                      <span>${item.price} <span className='text-gray-400'><del>${item.discount}</del></span>  </span>
+                    <div className='pt-4'>
+                            <span className=' p-1 rounded-sm  bg-red-800 text-white md:hidden'>-25%</span>
+                            <h2 className='text-lg font-semibold '>{item.name}</h2>
+                            <span>${item.price} <span className='text-gray-400'><del>${item.discount}</del></span>  </span>
 
-                    </div>
+                          </div>
                   </div>
 
                   {/* <ProductItem  product={item} /> */}

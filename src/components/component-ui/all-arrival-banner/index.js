@@ -1,27 +1,34 @@
-"use client"
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
-import React, { useEffect, useState } from 'react'
+const AllNewArrival = () => {
+  const [isMobile, setIsMobile] = useState(false);
 
- 
-function NewArrivalBanner() {
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
 
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
+  const desktopImage = "/image/image3.jpg";
+  const mobileImage = "/image/img2.jpg";
+  const bannerLink = "/category/new-arrivals";
 
   return (
-    <div className='bg-white'>
-      <div className='relative w-full mx-auto max-w-screen-2xl overflow-hidden h-auto '>
-<div className='flex  transition-transform duration-1000 ease-in-out relative w-full h-auto ' >
- 
-
-    <img
-    src="https://static.vecteezy.com/system/resources/previews/010/925/835/non_2x/abstract-new-arrival-template-with-flat-design-free-vector.jpg"
-    alt='banner'
-    className={`w-full  rounded-lg h-auto  `}
-    />
-</div>
-      </div>
+    <div className="w-full h-auto relative overflow-hidden">
+      <Link href={bannerLink}>
+        <img
+          src={isMobile ? mobileImage : desktopImage}
+          alt="Banner"
+          className="w-full h-full object-cover cursor-pointer"
+        />
+      </Link>
     </div>
-  )
-}
+  );
+};
 
-export default NewArrivalBanner
+export default AllNewArrival;

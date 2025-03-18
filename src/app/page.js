@@ -1,4 +1,4 @@
-
+"use client"
 
 import ImageSlider from "../components/component-ui/imageSlider";
 
@@ -10,9 +10,9 @@ import NewArrival from "@/components/categories-product/new-arrival";
 
 export default function Home() {
   return (
-    <div className="bg-white ">
+    <div className="bg-white text-black ">
     
-      <div className="mx-auto max-w-screen-2xl px-5 py-5 ">
+      <div className="mt-5 mx-auto max-w-screen-2xl px-5  ">
     
         <div>
         <ImageSlider/>

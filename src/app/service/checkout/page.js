@@ -65,7 +65,7 @@ const CheckoutPage = () => {
     };
 
     return (
-        <div className="max-w-3xl mx-auto p-6">
+        <div className="max-w-3xl mx-auto p-6 text-black">
             <h1 className="text-2xl font-bold mb-4">Checkout</h1>
 
             {/* Shipping Form */}

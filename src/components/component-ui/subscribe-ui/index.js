@@ -11,7 +11,7 @@ export default function SubscribeSection() {
   };
 
   return (
-    <div className="bg-gray-100 p-8 rounded-lg w-full flex flex-col items-center text-center">
+    <div className=" mb-10 bg-gray-100 p-8 rounded-lg w-full flex flex-col items-center text-center">
       <h2 className="text-2xl font-bold text-gray-900">Subscribe to YOUTH Wardrobe Wisdom</h2>
       <p className="text-gray-600 mt-2">Invite customers to subscribe for early sale access, new in, promotions, and more.</p>
       <form onSubmit={handleSubmit} className="mt-4 flex w-full max-w-md">

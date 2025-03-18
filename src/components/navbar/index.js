@@ -81,6 +81,7 @@ function Navbar() {
  </ul>
  
  <div className='mx-5 px-5 py-5 w-full fixed bottom-0 '>
+  <hr className='py-4 mr-10'/>
  {IsAuth? <Link href='/service/account'> <span onClick={()=>setMenuOpen(false)} className='inline-flex gap-2'> <User/> Account </span></Link>: <Link href='/service/login'> <span onClick={()=>setMenuOpen(false)} className='inline-flex gap-2'> <LogIn/> Login</span></Link>}
  
  </div>
