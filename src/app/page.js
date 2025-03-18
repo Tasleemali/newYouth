@@ -10,7 +10,7 @@ import NewArrival from "@/components/categories-product/new-arrival";
 
 export default function Home() {
   return (
-    <div className="bg-white text-black ">
+    <div className="mt-8 bg-white text-black ">
     
       <div className="mt-5 mx-auto max-w-screen-2xl px-5  ">
     
