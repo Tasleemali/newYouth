@@ -32,7 +32,7 @@ function NewArrival() {
 
 
     <div className='bg-white text-black '>
-      <div className='mx-auto max-w-screen-2xl'>
+      <div className='mx-auto max-w-screen-2xl py-10'>
         <div className=' px-5 sm:px-10 ' >
           {/* img */}
 
