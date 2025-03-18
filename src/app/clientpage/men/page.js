@@ -56,7 +56,7 @@ function Men() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}>
           <div className=' py-5 grid grid-cols-2 md:grid-cols-4 gap-2 '>
-            {product.filter((item)=> item.name.toLowerCase().includes(query.toLowerCase())).map((item) => {
+            {product.filter((item)=> item.name.toLowerCase().includes(query.toLowerCase())).map((item ,index) => {
   
             if(item.category === "Men"){
 
@@ -67,7 +67,7 @@ function Men() {
    );
  }
               return (
-                <div onClick={() => router.push(`/service/productdetails/${item._id}`)}>
+                <div key={index} onClick={() => router.push(`/service/productdetails/${item._id}`)}>
                   <div className='w-full max-w-sm bg-white rounded-lg  overflow-hidden gap-5'>
 
                     <div className='w-full aspect-[4/5] bg-gray-200 relative'>

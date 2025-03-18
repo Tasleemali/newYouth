@@ -13,9 +13,6 @@ function NewArrival() {
   const [product, setProduct] = useState([])
   const { query } = useContext(GlobalContext)
 
-
-
-
   useEffect(() => {
     async function fetchProducts() {
       try {
@@ -30,7 +27,7 @@ function NewArrival() {
     fetchProducts();
   }, []);
 
-  console.log(product)
+  // console.log(product)
   return (
 
 

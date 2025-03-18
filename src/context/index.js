@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useEffect, useState } from "react";
+import { createContext,  useState } from "react";
 
 
 export const GlobalContext = createContext(null)
@@ -9,57 +9,7 @@ export default function GlobalState({children}){
  const   [IsAuth ,setIsAuth] = useState(false) 
 const  [query, setQuery] = useState('')
 // this is for wishlist
-    const [wishlist, setWishlist] = useState([]);
-    const userId = typeof window !== "undefined" ? localStorage.getItem("userId") : null;
-
-    useEffect(() => {
-        if (userId) {
-            fetch(`/api/wishlist?userId=${userId}`)
-                .then(res => res.json())
-                .then(data => setWishlist(data.wishlist))
-                .catch(error => console.error("Failed to load wishlist:", error));
-        }
-    }, [userId]);
-
-    const addToWishlist = async (productId) => {
-        if (!userId) return alert("Login required");
-
-        try {
-            const res = await fetch("/api/wishlist", {
-                method: "POST",
-                body: JSON.stringify({ userId, productId }),
-                headers: { "Content-Type": "application/json" },
-            });
-
-            if (!res.ok) throw new Error(`Server Error: ${res.status}`);
-
-            const data = await res.json();
-            setWishlist(data.wishlist); // ✅ Fix
-        } catch (error) {
-            console.error("Failed to add to wishlist:", error);
-            alert("Something went wrong. Please try again.");
-        }
-    };
-
-    const removeFromWishlist = async (productId) => {
-        if (!userId) return;
-
-        try {
-            const res = await fetch("/api/wishlist", {
-                method: "DELETE",
-                body: JSON.stringify({ userId, productId }), // ✅ Fix
-                headers: { "Content-Type": "application/json" },
-            });
-
-            if (!res.ok) throw new Error(`Server Error: ${res.status}`);
-
-            const data = await res.json();
-            setWishlist(data.wishlist); // ✅ Fix
-        } catch (error) {
-            console.error("Failed to remove from wishlist:", error);
-            alert("Something went wrong. Please try again.");
-        }
-    };
+   
 // this for cart
    const [carts ,setCarts] = useState([])
 
@@ -89,7 +39,7 @@ const  [query, setQuery] = useState('')
    }
 
 return(
-    <GlobalContext.Provider value={{IsAuth ,setIsAuth , query, setQuery ,carts ,setCarts ,addCart ,removeCart ,minusCart ,selectSize , SetSelectSize  ,  wishlist ,addToWishlist ,removeFromWishlist
+    <GlobalContext.Provider value={{IsAuth ,setIsAuth , query, setQuery ,carts ,setCarts ,addCart ,removeCart ,minusCart ,selectSize , SetSelectSize  
     }}>
         {children}
     </GlobalContext.Provider>
