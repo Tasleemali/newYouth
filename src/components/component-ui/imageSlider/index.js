@@ -36,7 +36,7 @@ function ImageSlider() {
   }, [currentIndex]);
   const images = isMobile ? mobileImages : desktopImages;
   return (
-    <div className="mt-8 py-10 relative  max-w-screen-2xl mx-auto overflow-hidden">
+    <div className=" py-10 relative  max-w-screen-2xl mx-auto overflow-hidden">
       {/* Slides */}
       <div className="flex transition-transform duration-700 ease-in-out" 
            style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
