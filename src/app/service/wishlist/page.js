@@ -6,7 +6,16 @@ export default function Wishlist() {
     const { addCart, selectSize, SetSelectSize } = useContext(GlobalContext)
     const [wishlist, setWishlist] = useState([]);
     const token = localStorage.getItem("token");
+  const [token, setToken] = useState(null);
+    // const token = localStorage.getItem("token");
 
+    useEffect(() => {
+        // ✅ Access localStorage only in useEffect
+        const storedToken = localStorage.getItem("token");
+        if (storedToken) {
+            setToken(storedToken);
+        }
+    }, []);
     useEffect(() => {
         if (!token) return;
 
