@@ -36,7 +36,7 @@ function NewArrival() {
         <div className=' px-5 sm:px-10 ' >
           {/* img */}
 
-          <div className=' mt-7 md:mt-4 '>
+          <div className=' '>
             <AllNewArrival/>
           </div>
           <h1 className=" mt-5 text-2xl font-bold flex  justify-center items-center gap-1"> New
