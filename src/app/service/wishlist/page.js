@@ -5,9 +5,9 @@ import { useState, useEffect, useContext } from "react";
 export default function Wishlist() {
     const { addCart, selectSize, SetSelectSize } = useContext(GlobalContext)
     const [wishlist, setWishlist] = useState([]);
-    const token = localStorage.getItem("token");
+   
   const [token, setToken] = useState(null);
-    // const token = localStorage.getItem("token");
+  
 
     useEffect(() => {
         // ✅ Access localStorage only in useEffect
