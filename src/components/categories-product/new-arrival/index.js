@@ -59,7 +59,7 @@ function NewArrival() {
                   <img
                     src={product.mainImage}
                     alt={product.name}
-                    className="h-72 w-full object-cover rounded-xl"
+                    className="h-80 w-auto object-cover rounded-xl"
                   />
                   {/* Discount Tag (If applicable) */}
                   {product.discount && (
