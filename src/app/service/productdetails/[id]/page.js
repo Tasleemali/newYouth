@@ -1,13 +1,14 @@
 "use client"
 
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import SubscribeSection from "@/components/component-ui/subscribe-ui";
 import { GlobalContext } from "@/context";
 import Link from "next/link";
 import ButttonWishList from "@/components/component-ui/wishlistbutton";
-const ProductDetail = () => {
 
+const ProductDetail = () => {
+const router = useRouter()
   const { id } = useParams()
   const [showImage, setShowImage] = useState()
   const [product, setProduct] = useState(null);
@@ -124,6 +125,7 @@ console.log("product",product)
             </div>
           </div>
         </div>
+      
 {/* releted  */}
 
    
@@ -132,34 +134,41 @@ console.log("product",product)
               Products
             </span>
           </h1>
-<div className=" py-10 px-5  flex  overflow-x-scroll no-scrollbar space-x-4 p-4">
-  { product && releted.map((item ,index) => {
-    if (
-      product.category === item.category 
-    ) {
-      return (
-        <div  key={index} onClick={() => router.push(`/service/productdetails/${item._id}`)}
-        className=" min-w-[250px] md:max-w-[400px]">
-                 
-                    <div className=''>
-                       {/* <span className='hidden md:inline-block absolute top-3 left-3 p-1 rounded-sm  bg-red-800 text-white '>{discountPercentage}%</span> */}
-                      <img
-                        src={item.mainImage}
-                        alt='product'
-                        className=' w-full h-full object-cover'
-                      />
+          <div className="py-10 px-5 flex overflow-x-scroll no-scrollbar space-x-4">
+  {product &&
+    releted?.length > 0 &&
+    releted
+      .filter((item) => item.category === product.category)
+      .map((item, index) => (
+        <div
+          key={index}
+          onClick={() => router.push(`/service/productdetails/${item._id}`)}
+          className="bg-white text-black rounded-2xl min-w-[250px] md:min-w-[300px] max-w-[300px] overflow-hidden cursor-pointer p-3"
+        >
+          <div className="relative text-black">
+            {/* ✅ IMAGE FIXED: Full image dikhega */}
+            <img
+              src={item.mainImage}
+              alt="product"
+              className="h-auto w-auto object-contain rounded-xl"
+            />
 
-                    </div>
-                    <div className='pt-4'>
-                            <span className=' p-1 rounded-sm  bg-red-800 text-white md:hidden'>-25%</span>
-                            <h2 className='text-lg font-semibold '>{item.name}</h2>
-                            <span>${item.price} <span className='text-gray-400'><del>${item.discount}</del></span>  </span>
-
-                          </div>
-                </div>
-      );
-    }
-  })}
+            {/* ✅ Wrapping text properly */}
+            <div className="pt-4 ">
+              <span className="p-1 rounded-sm bg-red-800 text-white md:hidden">-25%</span>
+              <h2 className="text-lg font-semibold w-full line-clamp-2 break-words">
+                {item.name}
+              </h2>
+              <span className="block text-base">
+                ${item.price}{" "}
+                <span className="text-gray-400">
+                  <del>${item.discount}</del>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      ))}
 </div>
 
 
@@ -176,5 +185,6 @@ console.log("product",product)
 }
 
 export default ProductDetail
+
 
 
