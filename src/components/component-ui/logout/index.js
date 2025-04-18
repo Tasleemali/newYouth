@@ -15,7 +15,7 @@ const logout = () => {
   return (
     <div>
         {IsAuth?
- <button className= ' py-3 bg-black  rounded-md text-white w-full'  onClick={logout}>LogOut</button>:null
+ <button className= ' py-3 px-5 md:w-40 w-full bg-black  rounded-md text-white '  onClick={logout}>LogOut</button>:null
         }
      
     </div>

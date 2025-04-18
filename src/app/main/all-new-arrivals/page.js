@@ -6,19 +6,22 @@ import { motion } from 'framer-motion'
 import { GlobalContext } from '@/context'
 import { useRouter } from 'next/navigation'
 import AllNewArrival from '@/components/component-ui/all-arrival-banner'
+import NewArrivalSkeleton from '@/components/component-ui/skeleton/newArrivalSkeleton'
 
 
 function NewArrival() {
   const router = useRouter()
   const [product, setProduct] = useState([])
+  const [loading ,setLoading] = useState(false)
   const { query } = useContext(GlobalContext)
-
   useEffect(() => {
     async function fetchProducts() {
+      setLoading(true)
       try {
         const res = await fetch("/api/products/get");
         const data = await res.json();
         setProduct(data);
+        setLoading(false)
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -27,16 +30,21 @@ function NewArrival() {
     fetchProducts();
   }, []);
 
+  if(loading){
+    return(
+      <NewArrivalSkeleton/>
+    ) 
+  }
+
   // console.log(product)
   return (
 
-
     <div className='bg-white text-black '>
-      <div className='mx-auto max-w-screen-2xl'>
+      <div className='mx-auto max-w-screen-2xl py-5'>
         <div className=' px-5 sm:px-10 ' >
-          {/* img */}
-
-          <div className='mt-4 '>
+          
+          {/* image hero */}
+          <div className=' '>
             <AllNewArrival/>
           </div>
           <h1 className=" mt-5 text-2xl font-bold flex  justify-center items-center gap-1"> New
@@ -44,8 +52,9 @@ function NewArrival() {
               Arrivals
             </span>
           </h1>
-          <div>
 
+          {/* product list */}
+          <div>
             <motion.div
               className="flex flex-col space-y-4"
               initial={{ opacity: 0, y: 50 }}
@@ -63,9 +72,8 @@ function NewArrival() {
                       );
                     }
                     return (
-                      <div key={index} onClick={() => { router.push(`/service/productdetails/${item._id}`) }}>
-                        <div className=' pb-5 w-full h max-w-sm bg-white rounded-lg  overflow-hidden gap-5'>
-
+                      <div key={index} onClick={() => { router.push(`/main/${item._id}`) }}>
+                        <div className=' pb-5 w-full h max-w-sm bg-white rounded-lg  overflow-hidden gap-5'> 
                           <div className='w-full aspect-[4/5] bg-gray-200 relative'>
                             <span className='hidden md:inline-block absolute top-3 left-3 p-1 rounded-sm  bg-red-800 text-white '>{discountPercentage}%</span>
                             <img
@@ -73,8 +81,8 @@ function NewArrival() {
                               alt='product'
                               className=' w-full h-full object-cover'
                             />
+                            </div>
 
-                          </div>
                           <div className='pt-4'>
                             <span className=' p-1 rounded-sm  bg-red-800 text-white md:hidden'>-25%</span>
                             <h2 className='text-lg font-semibold '>{item.name}</h2>
@@ -91,6 +99,7 @@ function NewArrival() {
               </div>
             </motion.div>
           </div>
+
         </div>
       </div>
 

@@ -53,6 +53,11 @@ export async function DELETE(req) {
     const { productId } = await req.json();
     const user = await User.findById(userId);
     
+if (!user) {
+    return NextResponse.json({ message: "User not found" }, { status: 404 });
+}
+
+    
     user.wishlist = user.wishlist.filter(id => id.toString() !== productId);
     await user.save();
 

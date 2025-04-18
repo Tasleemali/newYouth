@@ -5,7 +5,16 @@ import { useState, useEffect, useContext } from "react";
 export default function Wishlist() {
     const { addCart, selectSize, SetSelectSize } = useContext(GlobalContext)
     const [wishlist, setWishlist] = useState([]);
-    const token = localStorage.getItem("token");
+    const [token, setToken] = useState(null);
+    // const token = localStorage.getItem("token");
+
+    useEffect(() => {
+        // ✅ Access localStorage only in useEffect
+        const storedToken = localStorage.getItem("token");
+        if (storedToken) {
+            setToken(storedToken);
+        }
+    }, []);
 
     useEffect(() => {
         if (!token) return;
@@ -28,18 +37,26 @@ export default function Wishlist() {
                     "Authorization": `Bearer ${token}`
                 }
             });
-    
+
             if (!res.ok) {
                 throw new Error("Failed to remove item");
             }
-    
+
             // ✅ Instead of replacing wishlist, filter out the deleted product
             setWishlist((prevWishlist) => prevWishlist.filter(item => item._id !== productId));
         } catch (error) {
             console.error("Error removing item:", error);
         }
     };
-    
+    const handleAddCart = (product) => {
+        if (selectSize) {
+            selectSize, addCart(product, selectSize), 
+            alert(`${product.name} ,"add successfully"`)
+            SetSelectSize(null)
+        } else {
+            alert("please select size")
+        }
+    }
 
     return (
         <div className="max-w-2xl h-screen mx-auto mt-10 p-6 bg-white shadow-md rounded">
@@ -52,14 +69,14 @@ export default function Wishlist() {
                                 <img src={product.mainImage} alt={product.name} className="w-16 h-16 md:w-20 md:h-20 object-cover rounded" />
                                 <p className=" w-[200px] text-wrap">{product.name}</p>
                                 <p>${product.price}</p>
-                               
+
                                 <div className="inline-flex space-x-5">
                                     {product.sizes?.map((size) => {
                                         return (
                                             <button
                                                 key={size}
-                                                onClick={() => SetSelectSize(size)}
-                                                className={` ${selectSize === size ? ' bg-black text-white' : "bg-white text-black"} w-5 h-5 text-sm rounded-sm border-2 border-gray-300`}
+                                                onClick={() => { SetSelectSize(size) }}
+                                                className={` ${selectSize === size ? ' bg-black text-white' : ""}  px-2 py-2 text-sm rounded-sm border-2 border-gray-300`}
                                             >
                                                 {size}
                                             </button>
@@ -75,7 +92,7 @@ export default function Wishlist() {
                                 >
                                     Remove
                                 </button>
-                                <button onClick={() => { selectSize, addCart(product, selectSize), alert(`${product.name} ,"add successfully"`) }} className=' bg-black text-white px-3 py-1 rounded'>Add To Cart</button>
+                                <button onClick={() => handleAddCart(product)} className=' bg-black text-white px-3 py-1 rounded'>Add To Cart</button>
                             </div>
                         </div>
                     ))}

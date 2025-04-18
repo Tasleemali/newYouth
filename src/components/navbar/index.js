@@ -7,10 +7,6 @@ import Link from 'next/link'
 import Cart from '@/app/service/cart'
 import { GlobalContext } from '@/context'
 
-
-
-
-
 function Navbar() {
   const  [isMenuActive  , setIsMenuActive] = useState('home')
  const [menuOpen ,setMenuOpen] = useState(false)
@@ -63,20 +59,27 @@ function Navbar() {
    
 <ul className='hidden md:flex justify-between items-center gap-10'>
  <Link href="/"> <li  value={'home'}  onClick={()=>{ setIsMenuActive('home'), setMenuOpen(false)}} className={`${isMenuActive === 'home'? 'border-b border-gray-300':null}`}>Home</li></Link>  
- <Link href="/clientpage/all-new-arrivals"> <li value={'new'}  onClick={()=>{ setIsMenuActive('new'), setMenuOpen(false)}} className={`${isMenuActive === 'new'? 'border-b border-gray-300':""}`}>New Arrivals</li> </Link> 
- <Link href='/clientpage/men'>  <li value={'men'}  onClick={()=>{ setIsMenuActive('men'), setMenuOpen(false)}} className={`${isMenuActive === 'men'? 'border-b border-gray-300':""}`}>Men</li></Link>
- <Link href='/clientpage/women'>  <li value={'women'}  onClick={()=>{ setIsMenuActive('women'), setMenuOpen(false)}} className={`${isMenuActive === 'women'? 'border-b border-gray-300':""}`}>Women</li></Link>
-</ul>
+ <Link href="/main/all-new-arrivals"> <li value={'new'}  onClick={()=>{ setIsMenuActive('new'), setMenuOpen(false)}} className={`${isMenuActive === 'new'? 'border-b border-gray-300':""}`}>New Arrivals</li> </Link> 
+ <Link href='/main/men'>  <li value={'men'}  onClick={()=>{ setIsMenuActive('men'), setMenuOpen(false)}} className={`${isMenuActive === 'men'? 'border-b border-gray-300':""}`}>Men</li></Link>
+ <Link href='/main/women'>  <li value={'women'}  onClick={()=>{ setIsMenuActive('women'), setMenuOpen(false)}} className={`${isMenuActive === 'women'? 'border-b border-gray-300':""}`}>Women</li></Link>
+ {IsAuth? <Link href='/service/orders'> <li value={'order'}  onClick={()=>{ setIsMenuActive('order'), setMenuOpen(false)}} className={`${isMenuActive === 'order'? 'border-b border-gray-300':""}`}>Orders</li></Link>
+:null}
+ </ul>
 {/* slide menu */}
 
 <div className={` md:hidden fixed top-0 left-0 w-full h-full bg-black shadow-lg   transform ${menuOpen? "translate-x-0": "-translate-x-full"} transition-transform duration-300  ease-in-out z-50 `}>
   <button className='mx-5  px-5 py-5' onClick={()=>setMenuOpen(false)}> <X/></button>
  <ul className='px-5 mx-5 pt-10 font-semibold flex flex-col justify-center items-start space-y-8'>
  <Link href="/"> <li onClick={()=>setMenuOpen(false)}>Home</li></Link>  
- <Link href="/clientpage/all-new-arrivals"> <li onClick={()=>setMenuOpen(false)}>New Arrivals</li> </Link> 
-  <Link href='/clientpage/men' >  <li onClick={()=>setMenuOpen(false)}>Men</li></Link>
-  <Link href='/clientpage/women'>  <li onClick={()=>setMenuOpen(false)}>Women</li></Link>
-    
+ <Link href="/main/all-new-arrivals"> <li onClick={()=>setMenuOpen(false)}>New Arrivals</li> </Link> 
+  <Link href='/main/men' >  <li onClick={()=>setMenuOpen(false)}>Men</li></Link>
+  <Link href='/main/women'>  <li onClick={()=>setMenuOpen(false)}>Women</li></Link>
+  {IsAuth? <Link href="/service/orders"> <li onClick={()=>setMenuOpen(false)}>Orders</li></Link>  :null}
+   {IsAuth?
+  <Link href="/service/wishlist"> <li onClick={()=>setMenuOpen(false)}>WishList</li></Link>  :null}
+
+
+  
      
  </ul>
  

@@ -4,20 +4,23 @@ import {  Trash, X } from "lucide-react";
 import { GlobalContext } from "@/context";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+// import CheckoutButton from "@/components/component-ui/checkoutbutton";
+import Checkout from "../checkout/page";
 
 
 export default function Cart({setOpenCart}) {
 const router = useRouter()
 const {IsAuth} = useContext(GlobalContext)
   const {carts, addCart  , removeCart  ,minusCart} = useContext(GlobalContext)
-  const calculateTotalPrice = () => {
-    return carts.reduce((total, item) => total + item.qty * item.price, 0).toFixed(2)
-  }
+
+  const totalAmount = carts.reduce((acc, item) => acc + item.price * item.qty, 0) * 1; // Convert to paise
+
+
   return (
     <div className=" bg-black text-white max-w-4xl h-lvh mx-auto  overflow-y-scroll  ">
 
 <div className=" mx-5 bg-black text-white  sticky top-0 py-3 px-5  flex justify-between items-center">
-<h1 className="text-3xl font-bold ">Your cart</h1>
+<h1 className=" mt-5 text-2xl md:text-3xl font-bold ">Your cart</h1>
 <span onClick={()=>setOpenCart(false)} className=""><X/></span>
 </div>
 
@@ -51,9 +54,10 @@ const {IsAuth} = useContext(GlobalContext)
 </div>))
 }
  <div className="mt-6 mx-6 text-center sm:text-right">
-   <p className="text-lg font-semibold">Estimated total: Rs.{calculateTotalPrice()}</p>
+   <p className="text-lg font-semibold">Estimated total: Rs.{totalAmount}</p>
    <p className="text-gray-500 text-sm">Taxes, discounts, and shipping calculated at checkout.</p>
-{IsAuth?<div><Link href="/service/checkout">  <button onClick={()=>setOpenCart(false)} className="mt-4 border-2 border-gray-300 text-white  py-2 w-full sm:w-auto">Check out</button></Link></div>  :  <div> <Link href="/service/login"> <button onClick={()=>setOpenCart(false)} className="mt-4 border-2 border-gray-300 text-white  py-2 w-full sm:w-auto">Please Login to Checkout</button></Link></div>  }  
+   {IsAuth?<button  className="bg-orange-400 w-20 py-2 px-2 rounded-md mt-2 " onClick={()=> {setOpenCart(false),router.push("/service/checkout")}}>Buy</button>  : <button onClick={()=> { setOpenCart(false) , router.push("/service/login")}} className="bg-blue-500 py-2 px-2 rounded-md mt-2 ">Login to Checkout</button>  }
+ 
  </div>
       </div>:
       <div className="h-[400px] grid place-items-center"> <h1 onClick={()=> { setOpenCart(false) , router.push("/clientpage/all-new-arrivals")}} className=" text-white ">Cart is empty click to vist to see product</h1></div>

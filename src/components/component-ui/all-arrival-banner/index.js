@@ -19,7 +19,7 @@ const AllNewArrival = () => {
   const bannerLink = "/category/new-arrivals";
 
   return (
-    <div className="w-full h-auto relative overflow-hidden">
+    <div className=" w-full h-auto relative overflow-hidden">
       <Link href={bannerLink}>
         <img
           src={isMobile ? mobileImage : desktopImage}

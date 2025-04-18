@@ -1,6 +1,6 @@
 'use client'
 
-import { User, Mail,  } from "lucide-react"
+import { User, Mail,Location, Map  } from "lucide-react"
 import LogOut from "@/components/component-ui/logout"
 import Link from "next/link"
 import { useContext,  } from "react"
@@ -37,7 +37,16 @@ function UserDetailPage({user}) {
                       <p className="text-lg font-bold">Email</p>
                       <p className="text-gray-500">{user?.email}</p>
                     </div>
+                  
                   </div>
+                  {/* <div className="flex items-center space-x-4">
+                    <Map className="h-6 w-6" />
+                    <div>
+                      <p className="text-lg font-bold">Address</p>
+                      <p className="text-gray-500">{user?.address}</p>
+                    </div>
+                  
+                  </div> */} 
 
                   {/* logout */}
                   <LogOut />

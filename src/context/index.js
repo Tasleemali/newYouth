@@ -5,7 +5,7 @@ import { createContext,  useState } from "react";
 export const GlobalContext = createContext(null)
 
 export default function GlobalState({children}){
-    const [selectSize , SetSelectSize] = useState('')
+    const [selectSize , SetSelectSize] = useState(null)
  const   [IsAuth ,setIsAuth] = useState(false) 
 const  [query, setQuery] = useState('')
 // this is for wishlist

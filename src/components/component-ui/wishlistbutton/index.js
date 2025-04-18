@@ -19,7 +19,7 @@ function ButttonWishList({productId , children ,className}) {
     };
   return (
     
-     <button  className={`${className}`} 
+     <button  className='bg-orange-400 py-2 px-3 rounded-md  font-semibold '
     onClick={() => addToWishlist(productId._id)} 
 
 >

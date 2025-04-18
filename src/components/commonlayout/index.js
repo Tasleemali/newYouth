@@ -3,8 +3,9 @@ import React from 'react'
 import Navbar from '../navbar'
 import Footer from '../footer';
 import GlobalState from '@/context';
-import { FaRegHeart } from 'react-icons/fa';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import Link from 'next/link';
+import { Heart } from 'lucide-react';
  
 function CommonLayout({ children }) {
  
@@ -18,8 +19,7 @@ function CommonLayout({ children }) {
        {children}
 
        <Footer/>
-   <Link href="/service/wishlist"> <FaRegHeart className='  text-red-600 fixed bottom-20 right-5 w-30 h-30 text-[50px]'/></Link>
-       </GlobalState>
+        </GlobalState>
     </div>
   )
 }

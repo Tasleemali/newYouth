@@ -27,6 +27,9 @@ function ImageSlider() {
     window.addEventListener("resize", checkScreenSize);
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
+
+
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -36,7 +39,7 @@ function ImageSlider() {
   }, [currentIndex]);
   const images = isMobile ? mobileImages : desktopImages;
   return (
-    <div className="relative  max-w-screen-2xl mx-auto overflow-hidden">
+    <div className="relative max-w-screen-2xl mx-auto overflow-hidden">
       {/* Slides */}
       <div className="flex transition-transform duration-700 ease-in-out" 
            style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
