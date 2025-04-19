@@ -1,5 +1,5 @@
 'use client'
-import { createContext,  useState } from "react";
+import { createContext,  useState , useEffect} from "react";
 
 
 export const GlobalContext = createContext(null)
@@ -8,7 +8,19 @@ export default function GlobalState({children}){
     const [selectSize , SetSelectSize] = useState(null)
  const   [IsAuth ,setIsAuth] = useState(false) 
 const  [query, setQuery] = useState('')
-// this is for wishlist
+
+
+const [loadingAuth, setLoadingAuth] = useState(true); // 🆕
+
+useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    setIsAuth(true); // ✅ token mila toh auth true
+  } else {
+    setIsAuth(false);
+  }
+  setLoadingAuth(false); // ✅ hydration complete
+}, []);
    
 // this for cart
    const [carts ,setCarts] = useState([])
@@ -39,7 +51,7 @@ const  [query, setQuery] = useState('')
    }
 
 return(
-    <GlobalContext.Provider value={{IsAuth ,setIsAuth , query, setQuery ,carts ,setCarts ,addCart ,removeCart ,minusCart ,selectSize , SetSelectSize  
+    <GlobalContext.Provider value={{IsAuth ,setIsAuth ,loadingAuth, query, setQuery ,carts ,setCarts ,addCart ,removeCart ,minusCart ,selectSize , SetSelectSize  
     }}>
         {children}
     </GlobalContext.Provider>
