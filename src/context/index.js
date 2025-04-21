@@ -10,17 +10,21 @@ export default function GlobalState({children}){
 const  [query, setQuery] = useState('')
 
 
-const [loadingAuth, setLoadingAuth] = useState(true); // 🆕
+
+const [loadingAuth, setLoadingAuth] = useState(true);
 
 useEffect(() => {
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token"); // JWT ko sessionStorage se lein
+
   if (token) {
-    setIsAuth(true); // ✅ token mila toh auth true
+    setIsAuth(true); // Agar token milta hai, to user authenticated hai
   } else {
-    setIsAuth(false);
+    setIsAuth(false); // Agar token nahi hai, to user authenticated nahi hai
   }
-  setLoadingAuth(false); // ✅ hydration complete
+
+  setLoadingAuth(false); // Hydration complete
 }, []);
+
    
 // this for cart
    const [carts ,setCarts] = useState([])
