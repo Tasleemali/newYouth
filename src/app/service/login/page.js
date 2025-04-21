@@ -30,7 +30,7 @@ export default function LoginPage() {
     const data = await res.json();
 
     if (res.ok) {
-      localStorage.setItem("token", data.token);
+      sessionStorage.setItem("token", data.token);
       setIsAuth(true);
       alert("Login successful!");
       router.push("/");
